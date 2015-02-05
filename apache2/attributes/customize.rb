@@ -1,4 +1,4 @@
 #image in the assets folder
-default[:apache][:imgdir] = '/srv/www/immweb/current/imm-assets/img/'
+default[:apache][:imgdir] = '/var/www/img/'
 #Sound in the assets folder
-default[:apache][:sounddir] = '/srv/www/immweb/current/imm-assets/sound/'
+default[:apache][:sounddir] = '/var/www/sound/'
