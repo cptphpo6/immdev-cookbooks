@@ -17,7 +17,7 @@
             ProxyPass <%= config[:img_url] %>/
         </Location>
         <Location /sound/>
-            ProxyPass <%= node[:server][:sound_url] %>/
+            ProxyPass <%= config[:sound_url] %>/
         </Location>
 
         ProxyVia Off
