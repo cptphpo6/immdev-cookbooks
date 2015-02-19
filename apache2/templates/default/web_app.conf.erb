@@ -1,0 +1,30 @@
+<VirtualHost *:80>
+	DocumentRoot <%= node[:server][:docroot] %>
+	ServerName <%= node[:server][:devserverurl] %>
+	SetEnv APPLICATION_ON development
+	SetEnv LOCALE ru_RU
+	
+	RewriteEngine On
+	
+	 <Directory <%= node[:server][:docroot] %>>
+		Require all granted
+		
+		AllowOverride None
+		<IfModule mod_rewrite.c>
+			RewriteEngine On
+			RewriteRule ^js/(.*)$ /jsi18n/ru_RU/$1 [R,L]
+			
+			RewriteCond %{REQUEST_FILENAME} !d
+			RewriteCond %{REQUEST_FILENAME} !f
+			RewriteCond %{REQUEST_URI} !\.(ico|swf|jpe?g|gif|png|bmp|css|js)$
+			RewriteRule ^/battle/(.*)$ /battle/$1 [L]
+			
+			RewriteCond %{REQUEST_FILENAME} !d
+			RewriteCond %{REQUEST_FILENAME} !f
+			RewriteCond %{REQUEST_URI} !\.(ico|swf|jpe?g|gif|png|bmp|css|js)$
+			RewriteRule ^(.*)$ /index.php?url=$1 [QSA,L
+			
+		</IfModule>
+	 </Directory>
+
+</VirtualHost>
