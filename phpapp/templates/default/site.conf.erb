@@ -1,0 +1,47 @@
+<VirtualHost *:80>
+	DocumentRoot <%= @params[:docroot] %>
+	ServerName <%= @params[:server_name] %>
+	
+	SetEnv APPLICATION_ON development
+	SetEnv LOCALE ru_RU
+
+	<IfModule mod_proxy.c>
+        #turning ProxyRequests on and allowing proxying from all may allow
+        #spammers to use your proxy to send email.
+
+        # Enable/disable the handling of HTTP/1.1 "Via:" headers.
+        # ("Full" adds the server version; "Block" removes all outgoing Via: headers)
+        # Set to one of: Off | On | Full | Block
+		
+        <Location /img/>
+            ProxyPass <%= @params[:img_url] %>
+			SetEnv force-proxy-request-1.0 1
+			SetEnv proxy-nokeepalive 1
+        </Location>
+        <Location /sound/>
+            ProxyPass <%= @params[:sound_url] %>
+        </Location>
+
+	</IfModule>
+	 <Directory <%= @params[:docroot] %>>
+		Require all granted
+		
+		AllowOverride None
+		<IfModule mod_rewrite.c>
+			RewriteEngine On
+			RewriteRule ^js/(.*)$ /js-i18n/ru_RU/$1 [R,L]
+			
+			RewriteCond %{REQUEST_FILENAME} !d
+			RewriteCond %{REQUEST_FILENAME} !f
+			RewriteCond %{REQUEST_URI} !\.(ico|swf|jpe?g|gif|png|bmp|css|js)$
+			RewriteRule ^/battle/(.*)$ /battle/$1 [L]
+			
+			RewriteCond %{REQUEST_FILENAME} !d
+			RewriteCond %{REQUEST_FILENAME} !f
+			RewriteCond %{REQUEST_URI} !\.(ico|swf|jpe?g|gif|png|bmp|css|js)$
+			RewriteRule ^(.*)$ /index.php?url=$1 [QSA,L]
+			
+		</IfModule>
+	 </Directory>
+
+</VirtualHost>
