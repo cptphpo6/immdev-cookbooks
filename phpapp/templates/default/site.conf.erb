@@ -2,7 +2,7 @@
 	DocumentRoot <%= @params[:docroot] %>
 	ServerName <%= @params[:server_name] %>
 	
-	SetEnv APPLICATION_ON development
+	SetEnv APPLICATION_ON <%= @params[:deploy_env] %>
 	SetEnv LOCALE ru_RU
 
 	<IfModule mod_proxy.c>

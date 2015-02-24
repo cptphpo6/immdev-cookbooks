@@ -10,5 +10,5 @@ web_app 'immweb' do
   server_name node['phpapp']['server_name']
   img_url node['phpapp']['img_url']
   sound_url node['phpapp']['sound_url']
-  
+  deploy_env node['phpapp']['deploy_env']
 end
