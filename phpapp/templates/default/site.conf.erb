@@ -24,9 +24,11 @@
 
 	</IfModule>
 	 <Directory <%= @params[:docroot] %>>
-		Require all granted
+		Order allow,deny
+		Allow from all
 		
-		AllowOverride None
+		#Require all granted
+		#AllowOverride None
 		<IfModule mod_rewrite.c>
 			RewriteEngine On
 			RewriteRule ^js/(.*)$ /js-i18n/ru_RU/$1 [R,L]
