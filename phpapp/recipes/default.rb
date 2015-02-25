@@ -4,6 +4,14 @@ apache_site "default" do
   enable false
 end
 
+apache_module "proxy" do
+  enable true
+end
+
+apache_module "proxy_http" do
+  enable true
+end
+
 web_app 'immweb' do
   template 'site.conf.erb'
   docroot node['phpapp']['docroot']
